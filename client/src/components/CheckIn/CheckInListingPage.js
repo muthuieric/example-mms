@@ -85,7 +85,7 @@ export const CheckInListing = () => {
     <div className="mx-auto mt-10">
       <Navbar  />
 
-    <div className="bg-white shadow-md rounded">
+    <div className="bg-white shadow-md rounded mt-16">
         <div className="bg-orange-500 px-5 py-5 flex justify-center items-center">
           <h2 className="text-2xl font-semibold text-white">CheckIn</h2>
         </div>

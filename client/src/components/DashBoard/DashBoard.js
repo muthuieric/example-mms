@@ -19,7 +19,7 @@ const Dashboard = () => {
   return (
     <div className="mx-auto mt-10">
         <Navbar  />
-      <div className="bg-orange-500 px-5 py-5 flex justify-center items-center">
+      <div className="bg-orange-500 px-5 py-5 flex justify-center items-center mt-16">
         <h2 className="text-2xl font-semibold text-white">Dashboard</h2>
       </div>
   

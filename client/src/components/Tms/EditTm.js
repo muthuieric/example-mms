@@ -3,40 +3,38 @@ import { useParams, Link, useNavigate } from "react-router-dom"; // Updated impo
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-const EditCheckInForm = () => {
+const EditTmForm = () => {
   const { id } = useParams();
-  const [checkInData, setCheckInData] = useState({});
+  const [tmData, setTmData] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
   const navigate = useNavigate(); // Updated hook
 
   const validationSchema = yup.object().shape({
     Name: yup.string().required("Name is required"),
-    Room_number: yup
-      .number()
-      .required("Room number is required")
-      .positive()
-      .integer(),
+    Phone: yup.string().required("Phone is required"),
+    Email: yup.string().email("Invalid email address").required("Email is required"),
   });
 
   useEffect(() => {
-    fetch(`/checkins/${id}`)
+    fetch(`/tms/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        setCheckInData(data);
+        setTmData(data);
       })
       .catch((error) => {
-        console.error("Error fetching CheckIn data:", error);
+        console.error("Error fetching Tm data:", error);
       });
   }, [id]);
 
   const formik = useFormik({
     initialValues: {
-      Name: checkInData.Name || "",
-      Room_number: checkInData.Room_number || "",
+      Name: tmData.Name || "",
+      Phone: tmData.Phone || "",
+      Email: tmData.Email || "",
     },
     validationSchema,
     onSubmit: (values) => {
-      fetch(`/checkins/${id}`, {
+      fetch(`/tms/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -45,31 +43,32 @@ const EditCheckInForm = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          setCheckInData(data); // Update the state with the updated data
+          setTmData(data); // Update the state with the updated data
           setFormSubmitted(true);
 
-          // Navigate back to the Check-In page
-          navigate("/checkin"); // Use navigate to go back
+          // Navigate back to the TM listing page
+          navigate("/tms"); // Use navigate to go back
         });
     },
   });
 
- 
+
+
   return (
     <div className="mx-auto">
       <div className="bg-orange-500 px-5 py-5 flex justify-center items-center">
-        <h2 className="text-2xl font-semibold text-white">Edit CheckIn</h2>
+        <h2 className="text-2xl font-semibold text-white">Edit Tm</h2>
       </div>
 
       <div className="bg-white mt-16 flex flex-col items-center justify-center p-4 md:p-8">
         {formSubmitted ? (
           <div>
-            <p className="text-orange-500 mb-6 md:mb-12">CheckIn data updated successfully!</p>
+            <p className="text-orange-500 mb-6 md:mb-12">Tm data updated successfully!</p>
             <Link
-              to="/checkin"
+              to="/tms"
               className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-3 py-3 md:px-4 md:py-4 justify-center items-center rounded cursor-pointer"
             >
-              Back to Check-In Page
+              Back to TMs Page
             </Link>
           </div>
         ) : (
@@ -90,23 +89,32 @@ const EditCheckInForm = () => {
             </div>
 
             <div className="m-5">
-              <select
-                id="Room_number"
-                name="Room_number"
+              <input
+                type="text"
+                id="Phone"
+                placeholder="Phone"
+                name="Phone"
                 onChange={formik.handleChange}
-                value={formik.values.Room_number}
-                className="w-full p-2 border border-solid bg-white border-gray-300 rounded focus:outline-none focus:border-solid focus:border-orange-500"
-              >
-                <option value="">Room Number</option>
-                <option value="101">Room 101</option>
-                <option value="102">Room 102</option>
-                <option value="103">Room 103</option>
-                <option value="104">Room 104</option>
-                <option value="105">Room 105</option>
-                <option value="106">Room 106</option>
-              </select>
-              {formik.errors.Room_number && (
-                <p className="text-orange-500 text-sm mt-1">{formik.errors.Room_number}</p>
+                value={formik.values.Phone}
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-orange-500"
+              />
+              {formik.errors.Phone && (
+                <p className="text-orange-500 mt-1">{formik.errors.Phone}</p>
+              )}
+            </div>
+
+            <div className="m-5">
+              <input
+                type="text"
+                id="Email"
+                placeholder="Email"
+                name="Email"
+                onChange={formik.handleChange}
+                value={formik.values.Email}
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-orange-500"
+              />
+              {formik.errors.Email && (
+                <p className="text-orange-500 mt-1">{formik.errors.Email}</p>
               )}
             </div>
 
@@ -118,8 +126,8 @@ const EditCheckInForm = () => {
                 Update
               </button>
               <Link
-                to="/checkin"
-                className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-3 rounded cursor-pointer md:ml-4"
+                to="/tms"
+                className="bg-orange-500 hover-bg-orange-600 text-white font-bold px-4 py-3 rounded cursor-pointer md:ml-4"
               >
                 Back
               </Link>
@@ -132,4 +140,4 @@ const EditCheckInForm = () => {
   );
 };
 
-export default EditCheckInForm;
+export default EditTmForm;

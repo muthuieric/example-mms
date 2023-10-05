@@ -4,7 +4,8 @@ import Dashboard from './components/DashBoard/DashBoard';
 import CheckInListing from './components/CheckIn/CheckInListingPage';
 import EditCheckInForm from './components/CheckIn/EditCheckInForm';
 import TmListing from './components/Tms/TmListing';
-import TmCreate from './components/Tms/TmCreate';
+import AddTmForm from './components/Tms/AddTmForm';
+import EditTmForm from './components/Tms/EditTm';
 import Home from './components/Login/HomePage';
 import RegistrationForm from './components/Login/RegistrationForm';
 import Login from './components/Login/LoginForm';
@@ -18,7 +19,8 @@ function App() {
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/login" element={<Login />} />
           <Route path="/tms" element={<TmListing />} />
-          <Route path='/tms/create' element={<TmCreate />} />
+          <Route path='/add-tm' element={<AddTmForm />} />
+          <Route path='/tms/:id' element={<EditTmForm />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/checkin' element={<CheckInListing />} />
           <Route path="/checkin/:id" element={<EditCheckInForm />} />
