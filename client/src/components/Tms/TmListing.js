@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../NavBar";
 
 const TmListing = () => {
   const [tmdata, setTmData] = useState(null);
@@ -52,7 +53,8 @@ const TmListing = () => {
     : null;
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto mt-10">
+      <Navbar />
       <div className="bg-white shadow-md rounded">
         <div className="bg-orange-500 px-6 py-5 flex justify-center items-center">
           <h2 className="text-2xl font-semibold text-white">TMs</h2>

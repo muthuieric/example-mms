@@ -22,4 +22,13 @@ class CheckIn(db.Model, SerializerMixin):
         return f'CheckIn: {self.Name}, Room_number: {self.Room_number}, time_in: {self.time_in}'
     
 
+class User(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    phone = db.Column(db.String(10), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    id_number = db.Column(db.String(20), nullable=False)
+    password = db.Column(db.String(60), nullable=False)
 
+    def __repr__(self):
+        return f'User(ID: {self.id}, Name: {self.name}, Email: {self.email}, Phone: {self.phone}, ID Number: {self.id_number})'

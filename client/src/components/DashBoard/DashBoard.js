@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PieChart from "./PieChart";
+import Navbar from "../NavBar";
 
 const Dashboard = () => {
   const [totalCheckIns, setTotalCheckIns] = useState(0);
@@ -16,8 +17,8 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="mx-auto">
-
+    <div className="mx-auto mt-10">
+        <Navbar  />
       <div className="bg-orange-500 px-5 py-5 flex justify-center items-center">
         <h2 className="text-2xl font-semibold text-white">Dashboard</h2>
       </div>

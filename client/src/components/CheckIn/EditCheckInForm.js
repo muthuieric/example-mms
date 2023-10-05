@@ -105,16 +105,16 @@ const EditCheckInForm = () => {
               )}
             </div>
 
-            <div className="flex flex-col md:flex-row justify-center items-center mt-8">
+            <div className="flex flex-col md:flex-row justify-center items-center mt-8 space-x-20">
               <button
                 type="submit"
-                className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-2 rounded cursor-pointer mb-4 md:mb-0"
+                className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-3 rounded cursor-pointer mb-4 md:mb-0"
               >
                 Update
               </button>
               <Link
                 to="/checkin"
-                className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-2 rounded cursor-pointer md:ml-4"
+                className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-3 rounded cursor-pointer md:ml-4"
               >
                 Back
               </Link>

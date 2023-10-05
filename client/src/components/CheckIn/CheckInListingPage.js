@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
+import Navbar from "../NavBar";
 
 
 
@@ -81,7 +82,9 @@ export const CheckInListing = () => {
 
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto mt-10">
+      <Navbar  />
+
     <div className="bg-white shadow-md rounded">
         <div className="bg-orange-500 px-5 py-5 flex justify-center items-center">
           <h2 className="text-2xl font-semibold text-white">CheckIn</h2>
@@ -132,7 +135,7 @@ export const CheckInListing = () => {
 <div className="mt-2 flex justify-center items-center" >
     <button
       type="submit"
-      className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-3 py-3 rounded-lg cursor-pointer "
+      className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-3 rounded-lg cursor-pointer "
     >
       Add Cheking
     </button>
@@ -155,7 +158,7 @@ export const CheckInListing = () => {
   />
   <button
     onClick={handlePrint}
-    className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-3 py-3 rounded-lg cursor-pointer ml-4"
+    className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-3 rounded-lg cursor-pointer ml-4"
   >
     Print
   </button>

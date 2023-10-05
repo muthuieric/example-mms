@@ -1,10 +1,20 @@
-from flask import Flask, request, jsonify, make_response
-from flask_migrate import Migrate
-from models import CheckIn, db
+import os
+from flask import Flask, request, jsonify, make_response, redirect, url_for, session
 from datetime import datetime 
+from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from flask_cors import CORS
 from sqlalchemy import func
+import jwt
+import bcrypt
+from datetime import datetime, timedelta
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+
+
+
+
+from models import CheckIn, db, User
+
 
 
 
@@ -13,11 +23,17 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///checkin.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['JWT_SECRET_KEY'] = '123456'  # Replace with a strong secret key
+
 
 
 
 migrate = Migrate(app, db)
+
 db.init_app(app)
+# bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
+
 
 CORS(app)
 
@@ -65,6 +81,10 @@ def update_checkin(id):
 
         return make_response(checkin.to_dict(), 200)
 
+
+# Dashboard
+
+
 @app.route("/total-checkins", methods=['GET'])
 def total_checkins():
     total_checkins = db.session.query(db.func.count(CheckIn.id)).scalar()
@@ -83,7 +103,11 @@ def get_room_data():
     ]
 
     return jsonify({'rooms': room_data_formatted})  
-    
+
+
+
+# api
+
 class CheckIns(Resource):
 
     def get(self):
@@ -148,6 +172,75 @@ class CheckInByID(Resource):
 
 api.add_resource(CheckInByID, '/checkins/<int:id>')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Registration
+# Create a resource for User
+@app.route('/register', methods=['POST'])
+def register_user():
+    data = request.get_json()  # Assuming the client sends JSON data
+
+    # Extract data from the request
+    name = data.get('Name')
+    phone = data.get('Phone')
+    email = data.get('Email')
+    id_number = data.get('IDNumber')
+    password = data.get('Password')
+
+    # Hash the password before storing it
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+
+    # Create a new user object with the hashed password
+    new_user = User(name=name, phone=phone, email=email, id_number=id_number, password=hashed_password)
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({"message": "User registered successfully"}), 201  # Return a success response
+
+# login
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    email = data.get('Email')
+    password = data.get('Password')
+
+    user = User.query.filter_by(email=email).first()
+
+    if user:
+        if bcrypt.checkpw(password.encode('utf-8'), user.password):
+            access_token = create_access_token(identity=user.id)
+            return jsonify({'token': access_token}), 200
+
+    return jsonify({'message': 'Invalid credentials'}), 401
+
+# Protect a route with JWT authentication
+@app.route('/protected', methods=['GET'])
+@jwt_required()
+def protected_route():
+    current_user_id = get_jwt_identity()
+    return jsonify({'message': f'Protected route accessed by user {current_user_id}'}), 200
+
+
+# logout
+@app.route('/logout', methods=['GET'])
+@jwt_required()
+def logout():
+    # Your logout logic here, such as clearing the JWT token from the client
+    return jsonify({"message": "Logged out successfully"}), 200
 
 
 if __name__ == '__main__':
