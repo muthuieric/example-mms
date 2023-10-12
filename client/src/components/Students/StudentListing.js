@@ -54,10 +54,10 @@ export const StudentListing = () => {
           <h2 className="text-2xl font-semibold text-white">Students</h2>
         </div>
 
-        <div className="m-4 flex items-center justify-center">
+        <div className="m-4 flex flex-col md:flex-row items-center justify-center">
           <label
             htmlFor="search"
-            className="block text-black text-lg font-semibold mb-2 mr-2"
+            className="block text-black text-lg font-semibold  mb-2 mr-2"
           >
             Search:
           </label>

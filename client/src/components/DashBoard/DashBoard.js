@@ -25,7 +25,7 @@ const Dashboard = () => {
   
       <div className="flex flex-col md:flex-row md:space-x-4 p-4 md:p-24">
         
-        <div className="md:w-1/2 lg:w-1/2 lg:h-64  shadow-lg bg-orange-500 text-white rounded-lg p-4 py-10">
+        <div className="md:w-1/2   mb-12 lg:w-1/2 lg:h-64  shadow-lg bg-orange-500 text-white rounded-lg p-4 py-10">
             <h2 className="text-3xl font-bold text-center mb-10">Total CheckIns</h2>
             <p className="text-6xl text-center">{totalCheckIns}</p>
         </div>

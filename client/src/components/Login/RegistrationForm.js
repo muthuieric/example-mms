@@ -157,7 +157,7 @@ const RegistrationForm = () => {
           )}
         </div>
 
-        <div className="flex lg:flex-col md:flex-row justify-center items-center mt-8">
+        <div className="flex flex-col  justify-center items-center mt-8">
           <button
             type="submit"
             className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-3 rounded cursor-pointer mb-4 md:mb-0"

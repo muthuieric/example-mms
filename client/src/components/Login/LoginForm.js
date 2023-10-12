@@ -26,16 +26,16 @@ const Login = () => {
         localStorage.setItem('token', token); // You can choose between localStorage and sessionStorage
   
         // Include the headers in your fetch request for protected routes
-        const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        };
+        // const headers = {
+        //   'Content-Type': 'application/json',
+        //   'Authorization': `Bearer ${token}`,
+        // };
   
         // Example: Fetch a protected route
-        const protectedRouteResponse = await fetch('/protected-route', {
-          method: 'GET',
-          headers: headers,
-        });
+        // const protectedRouteResponse = await fetch('/protected-route', {
+        //   method: 'GET',
+        //   headers: headers,
+        // });
   
         // Handle the response for the protected route here
   
@@ -89,7 +89,7 @@ const Login = () => {
             <div className="m-5 text-orange-500">{error}</div> // Display error message
           )}
 
-          <div className="flex lg:flex-col justify-center items-center mt-8">
+          <div className="flex flex-col justify-center items-center mt-8">
             <button
               type="submit"
               className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-3 rounded cursor-pointer mb-4 md:mb-0"

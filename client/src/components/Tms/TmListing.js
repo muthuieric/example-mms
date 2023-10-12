@@ -58,7 +58,7 @@ export const TmListing = () => {
         </div>
 
  
-        <div className="m-4 flex items-center justify-center">
+        <div className="m-4 flex flex-col md:flex-row items-center justify-center">
           <label
             htmlFor="search"
             className="block text-black text-lg font-semibold mb-2 mr-2"
@@ -72,6 +72,7 @@ export const TmListing = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-1/2 px-3 py-2 rounded-lg border border-black focus:outline-none focus:border-orange-500 mr-4"
           />
+          
            <div className="m-4 flex items-center justify-center">
             <Link to="/add-tm">
               <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-3 rounded-lg cursor-pointer">
